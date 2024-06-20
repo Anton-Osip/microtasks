@@ -1,45 +1,24 @@
 import './App.css'
-import {Button} from "./components/Button";
+import {useState} from "react";
 
 function App() {
 
-    // const onClickHandler = (name: string) => {
-    //     console.log(`Hello! I am ${name}`)
-    // }
-    // const foo1 = () => {
-    //     console.log('foo1')
-    // }
-    // const foo2 = (number: number) => {
-    //     console.log(number)
-    // }
-
-    const button1Foo = (subscriber: string) => {
-        console.log(subscriber)
+    let [a, setA] = useState(1)
+    const onclickHandler = () => {
+        setA(++a);
+        console.log(a)
     }
-    const button2Foo = (subscriber: string) => {
-        console.log(subscriber)
+
+    const onclickHandler1 = () => {
+        setA(0);
+        console.log(a)
     }
     return (
-
-
         <div className = "App">
-            <Button
-                name = {'My youtube chanel-1'}
-                callback = {
-                    () => {
-                        button1Foo('I am Anton')
-                    }
-                }/>
-            <Button
-                name = {'My youtube chanel-2'}
-                callback = {
-                    () => {
-                        button2Foo('I am Yana')
-                    }
-                }
-            />
-        </div>
-    )
+            <h1>{a}</h1>
+            <button onClick = {onclickHandler}>number</button>
+            <button onClick = {onclickHandler1}>0</button>
+        </div>)
 }
 
 export default App;
