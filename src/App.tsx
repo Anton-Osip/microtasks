@@ -1,39 +1,52 @@
-import './App.css'
 import {useState} from "react";
-import {Money} from "./components/Money";
+import {FoolInput} from "./components/FoolInput";
+import {Input} from "./components/Input";
+import {Button1} from "./components/Button1";
 
 export type FilterType = 'All' | 'Dollars' | 'RUBLS'
 
-function App() {
+export function App() {
+    const [message, setMessage] = useState([
+            {message: 'message1'},
+            {message: 'message2'},
+            {message: 'message3'},
+            {message: 'message4'},
+            {message: 'message5'}
+        ]
+    )
 
-    const [money, setMoney] = useState([
-        {banknots: 'Dollars', value: 100, number: ' a1234567890'},
-        {banknots: 'Dollars', value: 50, number: ' z1234567890'},
-        {banknots: 'RUBLS', value: 100, number: ' w1234567890'},
-        {banknots: 'Dollars', value: 100, number: ' e1234567890'},
-        {banknots: 'Dollars', value: 50, number: ' c1234567890'},
-        {banknots: 'RUBLS', value: 100, number: ' r1234567890'},
-        {banknots: 'Dollars', value: 50, number: ' x1234567890'},
-        {banknots: 'RUBLS', value: 50, number: ' v1234567890'},
-    ])
+    let [title, setTitle] = useState<string>('');
 
-    const [nameButton, setNameButton] = useState<FilterType>('All');
 
-    let currentMoney = money
-    if (nameButton === 'Dollars') {
-        currentMoney = money.filter((m) => m.banknots === 'Dollars')
-    }
-    if (nameButton === 'RUBLS') {
-        currentMoney = money.filter((m) => m.banknots === 'RUBLS')
+    const addMessage = (title: string) => {
+        let newMessage = {message: title}
+        setMessage([...message, newMessage])
     }
 
-    const onclickHandler = (nameButton: FilterType) => {
-        setNameButton(nameButton)
+    const callbackButtonHandler=()=>{
+        addMessage(title)
+        setTitle('')
     }
+
     return (
         <div className = "App">
-            <Money currentMoney={currentMoney} onclickHandler={onclickHandler}/>
-        </div>)
+            {/*<div>*/}
+            {/*    <input/>*/}
+            {/*    <button>+</button>*/}
+            {/*</div>*/}
+            {/*<FoolInput addMessage = {addMessage}/>*/}
+            <div>
+                <Input value = {title} setTitle = {setTitle}/>
+                <Button1 name={'+'} callback={callbackButtonHandler}/>
+            </div>
+            {message.map((el, index
+            ) => {
+                return (
+                    <div key = {index}>{el.message}</div>
+                )
+            })}
+        </div>
+    );
 }
 
 export default App;
