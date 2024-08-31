@@ -1,58 +1,48 @@
-import React, {useState} from 'react';
-import styles from "./components/Site.module.css";
-import {Navigate, NavLink, Route, Routes} from "react-router-dom";
-import {PageOne} from "./components/pages/PageOne";
-import {PageTwo} from "./components/pages/PageTwo";
-import {PageThree} from "./components/pages/PageThree";
+import React from 'react';
+import {Navigate, NavLink, Route, Routes} from 'react-router-dom';
 import {Error404} from "./components/pages/Error404";
+import {ADIDAS} from "./components/pages/ADIDAS";
+import {PUMA} from "./components/pages/PUMA";
+import {ABIBAS} from "./components/pages/ABIBAS";
+import styles from "./components/Site.module.css";
+import {S} from './components/pages/_styles';
+import {SnickersPage} from "./components/pages/SnickersPage";
 
+
+const PATH = {
+    PAGE1: '/adidas',
+    PAGE2: '/puma',
+    PAGE3: '/abibas',
+    // PAGE4: '/adidas/modal',
+} as const;
 
 function App() {
     return (
         <div>
-            <div className = {styles.header}><h1>HEADER</h1></div>
-            <div className = {styles.body}>
-                <div className = {styles.nav}>
-                    <div><NavLink
-                        className = {({isActive}) => isActive ? styles.activeNavLink : styles.navLink}
-                        to = {"/page1"}>Page1</NavLink>
-                    </div>
-                    <div><NavLink
-                        className = {({isActive}) => isActive ? styles.activeNavLink : styles.navLink}
-                        to = {"/page2"}>Page2</NavLink></div>
-                    <div><NavLink
-                        className = {({isActive}) => isActive ? styles.activeNavLink : styles.navLink}
-                        to = {"/page3"}>Page3</NavLink></div>
+            <div className={styles.header}><h1>HEADER</h1></div>
+            <div className={styles.body}>
+                <div className={styles.nav}>
+                    <S.NavWrapper><NavLink to={PATH.PAGE1}>ADIDAS</NavLink></S.NavWrapper>
+                    <S.NavWrapper><NavLink to={PATH.PAGE2}>PUMA</NavLink></S.NavWrapper>
+                    <S.NavWrapper><NavLink to={PATH.PAGE3}>ABIBAS</NavLink></S.NavWrapper>
                 </div>
-                <div className = {styles.content}>
-
+                <div className={styles.content}>
                     <Routes>
-                        <Route
-                            element = {<Navigate to = {"/page1"}/>}
-                            path = "/"/>
-                        <Route
-                            element = {<PageOne/>}
-                            path = "/page1"/>
-                        <Route
-                            element = {<PageTwo/>}
-                            path = "/page2"/>
-                        <Route
-                            element = {<PageThree/>}
-                            path = "/page3"/>
-                        <Route
-                            element = {<Error404/>}
-                            path = "/error404"/>
-                        <Route
-                            element = {<Navigate to = {"/error404"}/>}
-                            path = "/*"/>
+                        <Route path={'/'} element={<Navigate to={PATH.PAGE1}/>}/>
 
+                        <Route path={PATH.PAGE1} element={<ADIDAS/>}/>
+                        <Route path={PATH.PAGE2} element={<PUMA/>}/>
+                        <Route path={PATH.PAGE3} element={<ABIBAS/>}/>
+                        <Route path={'/adidas/:id'} element={<SnickersPage/>}/>
+
+                        <Route path={'/*'} element={<Error404/>}/>
                     </Routes>
                 </div>
             </div>
-            <div className = {styles.footer}>abibas 2023</div>
+            <div className={styles.footer}>abibas 2023</div>
         </div>
     );
 }
 
-
 export default App;
+
